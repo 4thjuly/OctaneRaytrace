@@ -8,7 +8,7 @@ public class Canvas {
         // TODO
     }
     
-    public Canvas getContext(String s) {
+    public static Canvas getContext(String s) {
         // TODO
         return null;
     }

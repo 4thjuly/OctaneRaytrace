@@ -11,7 +11,8 @@ public class Engine {
         this.options = options != null ? options : new EngineOptions();
         this.options.canvasHeight /= this.options.pixelHeight;
         this.options.canvasWidth /= this.options.pixelWidth;
-            /* TODO: dynamically include other scripts */
+
+        /* TODO: dynamically include other scripts */
     }
 
     public void setPixel(int x, int y, Color color) {
@@ -33,11 +34,10 @@ public class Engine {
 
     public void renderScene(Scene scene, Canvas canvas) {
         this.checkNumber = 0;
-            /* Get canvas */
+
+        /* Get canvas */
         if (canvas == null) {
-            this.canvas = canvas.getContext("2d");
-        } else {
-            this.canvas = null;
+            this.canvas = Canvas.getContext("2d");
         }
 
         int canvasHeight = this.options.canvasHeight;

@@ -1,9 +1,9 @@
 package ianet.octaneraytrace.Flog;
 
 public class Vector3D {
-    double x;
-    double y;
-    double z;
+    public double x;
+    public double y;
+    public double z;
 
     public Vector3D(double x, double y, double z) {
         this.x = Double.isNaN(x) ? 0.0 : x;

@@ -7,7 +7,7 @@ import ianet.octaneraytrace.Flog.Material.*;
 // The ray tracer code in this file was originally written by Adam Burmister.
 public class RayTracer {
 
-    public void renderScene() {
+    public static void renderScene() {
         Scene scene = new Scene();
 
         scene.camera = new Camera(new Vector3D(0, 0, -15), new Vector3D(-0.2, 0, 5), new Vector3D(0, 1, 0));
