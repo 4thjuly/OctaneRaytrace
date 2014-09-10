@@ -54,25 +54,35 @@ public class MyActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        final TextView tv = (TextView) findViewById(R.id.textview);
+        tv.append("\r\n");
         int id = item.getItemId();
+
         if (id == R.id.action_run) {
-            // Warmup
-            Measure(null);
-            // Benchmark
-            Data data = new Data();
-            while (data.runs < MIN_ITERATIONS) {
-                Measure(data);
-            }
-            TextView tv = (TextView) findViewById(R.id.textview);
-            long usec = (data.elapsed * 1000) / data.runs;
-            long formated = (REFERENCE_SCORE / usec) * 100;
-            tv.append("\r\n");
-            tv.append("Result: " + formated);
+            new Thread(new Runnable() { @Override public void run() {
+                // Warmup
+                Measure(null);
+                // Benchmark
+                Data data = new Data();
+                while (data.runs < MIN_ITERATIONS) {
+                    Measure(data);
+                    // tv.append("Elapsed: " + data.elapsed + "\r\n");
+                    final long elapsed = data.elapsed;
+                    final long runs = data.runs;
+                    tv.post(new Runnable() { @Override public void run() {
+                        tv.append("Runs: " + runs + ", Elapsed: " + elapsed + ", \r\n");
+                    }});
+                }
+                long usec = (data.elapsed * 1000) / data.runs;
+                final long score = (REFERENCE_SCORE / usec) * 100;
+                // tv.append("Result: " + formated);
+                tv.post(new Runnable() { @Override public void run() {
+                    tv.append("Score: " + score + "\r\n");
+                }});
+            }}).start();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }
